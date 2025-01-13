@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - finance-viewer-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: finance-viewer
+      POSTGRES_USER: dbuser
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "finance-viewer", "-U", "dbuser"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+
+  web:
+    image: finance-viewer
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8080:8080"
+
+volumes:
+  finance-viewer-data:
