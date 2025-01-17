@@ -110,7 +110,7 @@ public class TransactionServiceTest {
 
         assertTrue(transactionService.importComdirectCSVtoTransactions(file));
     }
-//TODO
+//
 //    @Test
 //    public void testGetMonthReports() {
 //        transactionService.createTransaction(testTransaction);
